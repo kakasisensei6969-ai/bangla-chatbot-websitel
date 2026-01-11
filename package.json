@@ -1,0 +1,9 @@
+{
+  "name": "groq-chatbot",
+  "version": "1.0.0",
+  "description": "My AI Chatbot",
+  "main": "index.html",
+  "dependencies": {
+    "node-fetch": "^2.7.0"
+  }
+}
