@@ -1,10 +1,14 @@
-const fetch = require('node-fetch');
-
-exports.handler = async (event) => {
-  const { message } = JSON.parse(event.body);
-  const API_KEY = process.env.GROQ_API_KEY; // এটি নেটলিফাই থেকে আসবে
+export const handler = async (event) => {
+  // শুধুমাত্র POST মেথড এলাউ করা
+  if (event.httpMethod !== "POST") {
+    return { statusCode: 405, body: "Method Not Allowed" };
+  }
 
   try {
+    const { message } = JSON.parse(event.body);
+    const API_KEY = process.env.GROQ_API_KEY;
+
+    // Groq API কল করা
     const response = await fetch("https://api.groq.com/openai/v1/chat/completions", {
       method: "POST",
       headers: {
@@ -18,11 +22,17 @@ exports.handler = async (event) => {
     });
 
     const data = await response.json();
+
     return {
       statusCode: 200,
+      headers: { "Content-Type": "application/json" },
       body: JSON.stringify(data)
     };
   } catch (error) {
-    return { statusCode: 500, body: error.toString() };
+    console.error("Error inside function:", error);
+    return { 
+      statusCode: 500, 
+      body: JSON.stringify({ error: "API call failed", details: error.message }) 
+    };
   }
 };
