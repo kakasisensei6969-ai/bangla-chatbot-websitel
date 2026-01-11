@@ -4,7 +4,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const sendBtn = document.getElementById('send-btn');
 
     // --- এখানে আপনার API KEY বসান ---
-    const GROQ_API_KEY = "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"; 
+    const GROQ_API_KEY = "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"; 
 
     // মেসেজ পাঠানোর ফাংশন
     async function sendMessage() {
